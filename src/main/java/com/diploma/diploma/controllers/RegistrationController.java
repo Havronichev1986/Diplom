@@ -7,19 +7,19 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin(origins = "http://localhost:4200", allowCredentials = "true")
 @RestController
-@RequestMapping("/api/registration")
+@RequestMapping("/registration")
 public class RegistrationController {
     @Autowired
     private UserRepository userRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    @PostMapping("/registration")
+    @PostMapping
     public ResponseEntity<?> registerUser(@RequestBody @Valid RegistrationDto request, BindingResult result) {
         if (result.hasErrors()) {
             return ResponseEntity.badRequest().body(result.getAllErrors());
@@ -36,6 +36,7 @@ public class RegistrationController {
         user.setName(request.getName());
         user.setTelephone(request.getTelephone());
         user.setRole("ROLE_USER");
+        System.out.println("Данные на регистрацию: " + request.getUsername() + " " + request.getName() + " " + request.getAddress() + " " + request.getTelephone());
         userRepository.save(user);
         return ResponseEntity.ok("Пользователь успешно зарегестрирован!");
     }

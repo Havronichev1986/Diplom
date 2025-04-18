@@ -10,7 +10,7 @@ public class RegistrationDto {
     private String username;
 
     @NotBlank(message = "Пароль обязателен")
-    @Size(min = 4, message = "Пароль должен содержать минимум 4 символа")
+    @Size(min = 3, message = "Пароль должен содержать минимум 3 символа")
     private String password;
 
     @NotBlank(message = "Адрес обязателен")
