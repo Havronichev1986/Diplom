@@ -58,7 +58,7 @@ public class SecurityConfig {
                 .formLogin(form->form
                         .loginPage("/login")
                         .permitAll()
-                        .defaultSuccessUrl("/home"))//указываем страницу для перенаправления после успешного входа
+                        .defaultSuccessUrl("/admin"))//указываем страницу для перенаправления после успешного входа
                 .logout(LogoutConfigurer::permitAll);//разрешаем доступ к выходу всем
                 return httpSecurity.build();
     }

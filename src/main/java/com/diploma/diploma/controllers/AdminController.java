@@ -56,15 +56,19 @@ public class AdminController {
     @Autowired
     private UserRepository userRepository;
 
-//    @GetMapping
-//    public List<User> getAllUsers() {
-//        return userRepository.findAll();
-//    }
-
     @GetMapping
     public Page<User> getAllUsers(Pageable pageable) {
+        System.out.println("Запрос на получение пользователей с пагинацией: " + pageable);
         return userRepository.findAll(pageable);
     }
+
+
+//    @GetMapping
+//    public Page<User> getAllUsers(Pageable pageable) {
+//        Page<User> usersPage = userRepository.findAll(pageable);
+//        System.out.println("Данные пользователей: " + usersPage.getContent());
+//        return usersPage;
+//    }
 
     @PostMapping("/{id}/remove")
     public void deleteUser(@PathVariable("id") long id) {
