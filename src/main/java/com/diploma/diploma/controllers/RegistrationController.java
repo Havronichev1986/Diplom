@@ -10,6 +10,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 @CrossOrigin(origins = "http://localhost:4200", allowCredentials = "true")
 @RestController
 @RequestMapping("/registration")
@@ -25,7 +27,11 @@ public class RegistrationController {
             return ResponseEntity.badRequest().body(result.getAllErrors());
         }
         if (userRepository.findByUsername(request.getUsername()) != null) {
-            return ResponseEntity.badRequest().body("Пользователь с таким именнем уже существует!");
+            return ResponseEntity
+                    .badRequest()
+                    .body(Map.of("message", "Пользователь уже существует"));
+//            return ResponseEntity.badRequest().body("Пользователь с таким именнем уже существует!");
+//            return ResponseEntity.ok(Map.of("message", "Пользователь с таким именнем уже существует!"));
         }
 
         User user = new User();
@@ -38,6 +44,7 @@ public class RegistrationController {
         user.setRole("ROLE_USER");
         System.out.println("Данные на регистрацию: " + request.getUsername() + " " + request.getName() + " " + request.getAddress() + " " + request.getTelephone());
         userRepository.save(user);
-        return ResponseEntity.ok("Пользователь успешно зарегестрирован!");
+        return ResponseEntity.ok(Map.of("message", "Пользователь успешно зарегистрирован!"));
+//        return ResponseEntity.ok("Пользователь успешно зарегестрирован!");
     }
 }
